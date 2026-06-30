@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hafsa Shakeel — Frontend Web Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --navy: #0D1B2A;
+    --navy-mid: #1B2D42;
+    --navy-light: #243650;
+    --violet: #7C6AF5;
+    --violet-light: #A89CF8;
+    --violet-pale: #EBE8FF;
+    --accent: #F5A623;
+    --white: #FFFFFF;
+    --off-white: #F8F7FF;
+    --text-dark: #0D1B2A;
+    --text-mid: #445566;
+    --text-light: #7A8A9A;
+    --border: #E2E0F0;
+    --card-bg: #FFFFFF;
+    --section-bg: #F8F7FF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-dark);
+    background: var(--white);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(13,27,42,0.96);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(124,106,245,0.2);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    color: var(--violet-light);
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
+  }
+  .nav-links { display: flex; list-style: none; gap: 2rem; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--violet-light); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: rgba(255,255,255,0.8); border-radius: 2px; transition: all 0.3s; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 100px 2rem 60px;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(124,106,245,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,106,245,0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .hero-glow {
+    position: absolute; top: -100px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(124,106,245,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-glow-2 {
+    position: absolute; bottom: -80px; left: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative;
+    max-width: 1100px; margin: 0 auto; width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 4rem; align-items: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(124,106,245,0.12);
+    border: 1px solid rgba(124,106,245,0.3);
+    border-radius: 100px; padding: 6px 16px; margin-bottom: 1.5rem;
+    font-size: 0.78rem; color: var(--violet-light);
+    letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--violet-light); border-radius: 50%;
+    animation: pulse-dot 2s infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    color: var(--white); line-height: 1.1;
+    margin-bottom: 0.5rem; letter-spacing: -0.02em;
+  }
+  .hero-name span { color: var(--violet-light); }
+  .hero-role {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 1.5rem; font-weight: 400; min-height: 2rem;
+  }
+  .typed-cursor {
+    display: inline-block; width: 2px; height: 1.2em;
+    background: var(--violet-light); margin-left: 2px;
+    vertical-align: middle; animation: blink 1s infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+  .hero-bio {
+    color: rgba(255,255,255,0.55); font-size: 1rem;
+    max-width: 540px; line-height: 1.8; margin-bottom: 2.5rem;
+  }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--violet); color: #fff;
+    padding: 0.85rem 1.8rem; border-radius: 8px;
+    text-decoration: none; font-weight: 600; font-size: 0.9rem;
+    transition: background 0.2s, transform 0.15s; border: none; cursor: pointer;
+  }
+  .btn-primary:hover { background: #6B59E8; transform: translateY(-1px); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: rgba(255,255,255,0.85);
+    padding: 0.85rem 1.8rem; border-radius: 8px; text-decoration: none;
+    font-weight: 600; font-size: 0.9rem;
+    border: 1px solid rgba(255,255,255,0.25);
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+  }
+  .btn-outline:hover { border-color: var(--violet-light); color: var(--violet-light); transform: translateY(-1px); }
+  .hero-avatar { position: relative; display: flex; align-items: center; justify-content: center; }
+  .avatar-ring {
+    width: 300px; height: 300px; border-radius: 50%;
+    border: 2px solid rgba(124,106,245,0.3);
+    display: flex; align-items: center; justify-content: center; position: relative;
+    animation: spin-slow 18s linear infinite;
+  }
+  @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .avatar-ring::before {
+    content: ''; position: absolute; inset: -12px;
+    border-radius: 50%; border: 1px solid rgba(124,106,245,0.12);
+  }
+  .avatar-ring::after {
+    content: ''; position: absolute;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--violet-light);
+    top: 10px; left: 50%; transform: translateX(-50%);
+    box-shadow: 0 0 0 3px rgba(168,156,248,0.25);
+  }
+  .avatar-inner {
+    width: 260px; height: 260px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--navy-mid), var(--navy-light));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 5rem;
+    color: var(--violet-light);
+    border: 2px solid rgba(124,106,245,0.2);
+    letter-spacing: -0.04em;
+    animation: spin-slow 18s linear infinite reverse;
+  }
+  .hero-stats {
+    display: flex; gap: 2rem;
+    margin-top: 3rem; padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .hero-stat-num { font-size: 1.6rem; font-weight: 700; color: var(--violet-light); line-height: 1; }
+  .hero-stat-label { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* ── SHARED SECTION ── */
+  section { padding: 90px 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--violet); margin-bottom: 0.75rem;
+  }
+  .section-label::before { content: ''; width: 20px; height: 2px; background: var(--violet); border-radius: 2px; }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem); color: var(--text-dark);
+    line-height: 1.2; margin-bottom: 1rem; letter-spacing: -0.02em;
+  }
+  .section-sub { color: var(--text-mid); font-size: 1rem; max-width: 560px; line-height: 1.8; }
+
+  /* ── ABOUT ── */
+  #about { background: var(--section-bg); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 3.5rem; }
+  .about-card { background: var(--white); border-radius: 16px; padding: 2.5rem; border: 1px solid var(--border); }
+  .about-card p { color: var(--text-mid); margin-bottom: 1rem; line-height: 1.8; }
+  .about-card p:last-child { margin-bottom: 0; }
+  .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; }
+  .tag { background: var(--violet-pale); color: var(--violet); padding: 5px 14px; border-radius: 100px; font-size: 0.8rem; font-weight: 600; }
+  .about-info-items { display: flex; flex-direction: column; gap: 1.5rem; }
+  .about-info-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .info-icon { width: 44px; height: 44px; min-width: 44px; background: var(--violet-pale); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--violet); font-size: 1.1rem; }
+  .info-label { font-size: 0.78rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+  .info-val { font-size: 0.95rem; color: var(--text-dark); font-weight: 500; margin-top: 2px; }
+  .info-val a { color: var(--violet); text-decoration: none; }
+  .info-val a:hover { text-decoration: underline; }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--white); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 3.5rem; }
+  .skill-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.5rem 1.25rem;
+    display: flex; align-items: center; gap: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; cursor: default;
+  }
+  .skill-card:hover { border-color: var(--violet); box-shadow: 0 4px 20px rgba(124,106,245,0.1); transform: translateY(-2px); }
+  .skill-icon { width: 42px; height: 42px; min-width: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+  .skill-name { font-weight: 600; font-size: 0.9rem; color: var(--text-dark); }
+  .skill-level { font-size: 0.75rem; color: var(--text-light); margin-top: 2px; }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--section-bg); }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 3.5rem; }
+  .project-card { background: var(--white); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; }
+  .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(13,27,42,0.1); }
+  .project-img-placeholder {
+    width: 100%; height: 190px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .project-body { padding: 1.5rem; }
+  .project-tech-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1rem; }
+  .tech-tag { background: var(--section-bg); color: var(--text-mid); border: 1px solid var(--border); padding: 3px 10px; border-radius: 100px; font-size: 0.72rem; font-weight: 600; }
+  .project-title { font-size: 1.05rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem; }
+  .project-desc { font-size: 0.87rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 1.25rem; }
+  .project-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.82rem; font-weight: 600; color: var(--violet);
+    text-decoration: none; padding: 6px 12px; border-radius: 6px;
+    border: 1px solid rgba(124,106,245,0.3); transition: background 0.2s;
+  }
+  .project-link:hover { background: var(--violet-pale); }
+
+  /* ── EDUCATION ── */
+  #education { background: var(--white); }
+  .timeline { margin-top: 3.5rem; position: relative; padding-left: 2.5rem; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(to bottom, var(--violet), rgba(124,106,245,0.1)); border-radius: 2px; }
+  .timeline-item { position: relative; margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--border); }
+  .timeline-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .timeline-dot { position: absolute; left: -2.72rem; top: 4px; width: 14px; height: 14px; border-radius: 50%; background: var(--violet); border: 3px solid var(--white); box-shadow: 0 0 0 2px var(--violet); }
+  .timeline-date { font-size: 0.78rem; color: var(--violet); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+  .timeline-title { font-size: 1.1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.25rem; }
+  .timeline-place { font-size: 0.9rem; color: var(--text-mid); margin-bottom: 0.5rem; }
+  .timeline-desc { font-size: 0.88rem; color: var(--text-light); line-height: 1.7; }
+  .cgpa-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--violet-pale); color: var(--violet);
+    padding: 4px 12px; border-radius: 100px;
+    font-size: 0.8rem; font-weight: 700; margin-top: 0.6rem;
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--section-bg); }
+  .exp-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; margin-top: 3.5rem; display: flex; align-items: flex-start; gap: 1.5rem; }
+  .exp-icon { width: 56px; height: 56px; min-width: 56px; border-radius: 14px; background: linear-gradient(135deg, var(--violet), #A89CF8); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.4rem; }
+  .exp-title { font-size: 1.2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.25rem; }
+  .exp-sub { font-size: 0.9rem; color: var(--violet); font-weight: 600; margin-bottom: 0.75rem; }
+  .exp-desc { font-size: 0.9rem; color: var(--text-mid); line-height: 1.8; }
+
+  /* ── CERTIFICATES ── */
+  #certificates { background: var(--white); }
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; margin-top: 3.5rem; }
+  .cert-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; display: flex; align-items: flex-start; gap: 1rem; transition: border-color 0.2s, transform 0.2s; }
+  .cert-card:hover { border-color: var(--violet); transform: translateY(-2px); }
+  .cert-icon { width: 44px; height: 44px; min-width: 44px; border-radius: 10px; background: var(--violet-pale); display: flex; align-items: center; justify-content: center; color: var(--violet); font-size: 1.2rem; }
+  .cert-name { font-size: 0.92rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+  .cert-issuer { font-size: 0.8rem; color: var(--text-light); }
+  .cert-duration { font-size: 0.75rem; color: var(--violet); font-weight: 600; margin-top: 4px; }
+
+  /* ── RESUME ── */
+  #resume {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    text-align: center; padding: 80px 2rem; position: relative; overflow: hidden;
+  }
+  #resume::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(124,106,245,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,106,245,0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .resume-inner { position: relative; }
+  #resume .section-title { color: var(--white); }
+  #resume .section-sub { color: rgba(255,255,255,0.55); margin: 0.75rem auto 2.5rem; max-width: 480px; }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials { background: var(--section-bg); }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 3.5rem; }
+  .testimonial-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; position: relative; }
+  .quote-mark { font-size: 3.5rem; color: var(--violet-pale); font-family: 'Playfair Display', serif; line-height: 1; margin-bottom: 0.5rem; }
+  .testimonial-text { font-size: 0.92rem; color: var(--text-mid); line-height: 1.8; margin-bottom: 1.5rem; }
+  .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
+  .author-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--violet-pale); display: flex; align-items: center; justify-content: center; color: var(--violet); font-weight: 700; font-size: 0.85rem; }
+  .author-name { font-size: 0.88rem; font-weight: 700; color: var(--text-dark); }
+  .author-role { font-size: 0.78rem; color: var(--text-light); margin-top: 2px; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--white); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3.5rem; align-items: start; }
+  .contact-info-items { display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 2rem; }
+  .contact-info-item { display: flex; align-items: center; gap: 1rem; }
+  .contact-icon { width: 44px; height: 44px; min-width: 44px; background: var(--violet-pale); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--violet); font-size: 1rem; }
+  .contact-val { font-size: 0.92rem; color: var(--text-mid); }
+  .contact-val a { color: var(--violet); text-decoration: none; }
+  .contact-val a:hover { text-decoration: underline; }
+  .social-row { display: flex; gap: 0.75rem; margin-top: 2rem; }
+  .social-btn { width: 44px; height: 44px; background: var(--section-bg); border: 1px solid var(--border); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--text-mid); text-decoration: none; font-size: 1.1rem; transition: background 0.2s, color 0.2s, border-color 0.2s; }
+  .social-btn:hover { background: var(--violet); color: white; border-color: var(--violet); }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-label { font-size: 0.8rem; font-weight: 600; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.04em; }
+  .form-control { padding: 0.75rem 1rem; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text-dark); background: var(--section-bg); transition: border-color 0.2s; outline: none; resize: none; }
+  .form-control:focus { border-color: var(--violet); background: var(--white); }
+  .form-control::placeholder { color: var(--text-light); }
+  .btn-send { background: var(--violet); color: white; padding: 0.9rem 2rem; border-radius: 8px; border: none; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s, transform 0.15s; align-self: flex-start; }
+  .btn-send:hover { background: #6B59E8; transform: translateY(-1px); }
+
+  /* ── FOOTER ── */
+  footer { background: var(--navy); color: rgba(255,255,255,0.5); text-align: center; padding: 2.5rem 2rem; font-size: 0.85rem; }
+  footer span { color: var(--violet-light); }
+
+  /* ── SKILL COLOR CARDS ── */
+  .grad-1 { background: linear-gradient(135deg,#FF6B6B12,#FF6B6B28); border-color:#FF6B6B30; }
+  .grad-1 .skill-icon { background:#FF6B6B15; color:#E85555; }
+  .grad-2 { background: linear-gradient(135deg,#1572B612,#1572B628); border-color:#1572B630; }
+  .grad-2 .skill-icon { background:#1572B615; color:#1572B6; }
+  .grad-3 { background: linear-gradient(135deg,#F7DF1E12,#F7DF1E28); border-color:#F7DF1E30; }
+  .grad-3 .skill-icon { background:#F7DF1E15; color:#B0A000; }
+  .grad-4 { background: linear-gradient(135deg,#7952B312,#7952B328); border-color:#7952B330; }
+  .grad-4 .skill-icon { background:#7952B315; color:#7952B3; }
+  .grad-5 { background: linear-gradient(135deg,#06B6D412,#06B6D428); border-color:#06B6D430; }
+  .grad-5 .skill-icon { background:#06B6D415; color:#0891B2; }
+  .grad-6 { background: linear-gradient(135deg,#61DAFB12,#61DAFB28); border-color:#61DAFB30; }
+  .grad-6 .skill-icon { background:#61DAFB15; color:#0EA5CA; }
+  .grad-7 { background: linear-gradient(135deg,#F0503212,#F0503228); border-color:#F0503230; }
+  .grad-7 .skill-icon { background:#F0503215; color:#E04422; }
+  .grad-8 { background: linear-gradient(135deg,var(--violet-pale),rgba(124,106,245,0.15)); border-color:rgba(124,106,245,0.25); }
+  .grad-8 .skill-icon { background:var(--violet-pale); color:var(--violet); }
+  .grad-9 { background: linear-gradient(135deg,#3DDC8412,#3DDC8428); border-color:#3DDC8430; }
+  .grad-9 .skill-icon { background:#3DDC8415; color:#1a9e52; }
+  .grad-10 { background: linear-gradient(135deg,#FF7B7212,#FF7B7228); border-color:#FF7B7230; }
+  .grad-10 .skill-icon { background:#FF7B7215; color:#d45050; }
+  .grad-11 { background: linear-gradient(135deg,#00BCD412,#00BCD428); border-color:#00BCD430; }
+  .grad-11 .skill-icon { background:#00BCD415; color:#0097a7; }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay { transition-delay: 0.15s; }
+  .reveal-delay-2 { transition-delay: 0.28s; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero-inner { grid-template-columns: 1fr; text-align: center; }
+    .hero-avatar { display: none; }
+    .hero-ctas { justify-content: center; }
+    .hero-stats { justify-content: center; }
+    .hero-bio { margin-left: auto; margin-right: auto; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .exp-card { flex-direction: column; }
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">HS</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#certificates">Certificates</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Available for Internship</div>
+      <h1 class="hero-name">Hafsa<br><span>Shakeel</span></h1>
+      <p class="hero-role" id="typed-role"></p>
+      <p class="hero-bio">
+        Software Engineering student passionate about building clean, responsive, and user-friendly
+        web experiences. I turn ideas into pixel-perfect interfaces that work beautifully on every device.
+      </p>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn-primary"><i class="fas fa-eye"></i> View Projects</a>
+        <a href="./Hafsa_Shakeel.pdf" download class="btn-outline"><i class="fas fa-download"></i> Download CV</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">4</div>
+          <div class="hero-stat-label">Projects Built</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">3.43</div>
+          <div class="hero-stat-label">CGPA</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">6th</div>
+          <div class="hero-stat-label">Semester</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-avatar">
+      <div class="avatar-ring">
+        <div class="avatar-inner">HS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">Get to know me</div>
+    <h2 class="section-title">About Me</h2>
+    <div class="about-grid reveal">
+      <div class="about-card">
+        <p>
+          Hi! I'm <strong>Hafsa Shakeel</strong>, a Software Engineering student at the
+          University of Agriculture, Faisalabad, currently complete 6th semester with a
+          CGPA of 3.46/4.00.
+        </p>
+        <p>
+          I have a strong foundation in frontend development — HTML, CSS, JavaScript, and React.js —
+          and I enjoy crafting responsive, user-friendly web applications that solve real problems.
+          I also work with Python for data analysis and image processing projects.
+        </p>
+        <p>
+          I am actively seeking a <strong>Frontend Web Development internship</strong> to gain
+          industry experience, collaborate with professionals, and contribute to impactful
+          software projects.
+        </p>
+        <div class="about-tags">
+          <span class="tag">Frontend Development</span>
+          <span class="tag">Responsive Design</span>
+          <span class="tag">React.js</span>
+          <span class="tag">Python</span>
+          <span class="tag">Problem Solving</span>
+        </div>
+      </div>
+      <div class="about-info-items">
+        <div class="about-info-item">
+          <div class="info-icon"><i class="fas fa-user"></i></div>
+          <div>
+            <div class="info-label">Name</div>
+            <div class="info-val">Hafsa Shakeel</div>
+          </div>
+        </div>
+        <div class="about-info-item">
+          <div class="info-icon"><i class="fas fa-envelope"></i></div>
+          <div>
+            <div class="info-label">Email</div>
+            <div class="info-val"><a href="mailto:hafsashakeel289@gmail.com">hafsashakeel289@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="about-info-item">
+          <div class="info-icon"><i class="fas fa-phone"></i></div>
+          <div>
+            <div class="info-label">Phone</div>
+            <div class="info-val"><a href="tel:+923457874601">+92 345 7874601</a></div>
+          </div>
+        </div>
+        <div class="about-info-item">
+          <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <div class="info-label">Location</div>
+            <div class="info-val">Faisalabad, Pakistan</div>
+          </div>
+        </div>
+        <div class="about-info-item">
+          <div class="info-icon"><i class="fas fa-graduation-cap"></i></div>
+          <div>
+            <div class="info-label">Degree</div>
+            <div class="info-val">BS Software Engineering </div>
+          </div>
+        </div>
+        <div class="about-info-item">
+          <div class="info-icon"><i class="fab fa-github"></i></div>
+          <div>
+            <div class="info-label">GitHub</div>
+            <div class="info-val"><a href="https://github.com/hafsashakeel289-lab" target="_blank">hafsashakeel289-lab</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">What I work with</div>
+    <h2 class="section-title">My Skills</h2>
+    <p class="section-sub">Technologies and tools I use to build responsive, modern web applications.</p>
+    <div class="skills-grid reveal">
+      <div class="skill-card grad-1">
+        <div class="skill-icon"><i class="fab fa-html5"></i></div>
+        <div><div class="skill-name">HTML5</div><div class="skill-level">Semantic & Accessible</div></div>
+      </div>
+      <div class="skill-card grad-2">
+        <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
+        <div><div class="skill-name">CSS3</div><div class="skill-level">Flexbox, Grid, Animations</div></div>
+      </div>
+      <div class="skill-card grad-3">
+        <div class="skill-icon"><i class="fab fa-js"></i></div>
+        <div><div class="skill-name">JavaScript (ES6+)</div><div class="skill-level">DOM, APIs, Async</div></div>
+      </div>
+      <div class="skill-card grad-6">
+        <div class="skill-icon"><i class="fab fa-react"></i></div>
+        <div><div class="skill-name">React.js</div><div class="skill-level">Components & Hooks</div></div>
+      </div>
+      <div class="skill-card grad-4">
+        <div class="skill-icon"><i class="fab fa-bootstrap"></i></div>
+        <div><div class="skill-name">Bootstrap</div><div class="skill-level">Responsive UI</div></div>
+      </div>
+      <div class="skill-card grad-5">
+        <div class="skill-icon"><i class="fas fa-wind"></i></div>
+        <div><div class="skill-name">Tailwind CSS</div><div class="skill-level">Utility-First Styling</div></div>
+      </div>
+      <div class="skill-card grad-9">
+        <div class="skill-icon"><i class="fab fa-python"></i></div>
+        <div><div class="skill-name">Python</div><div class="skill-level">Scripting & Data Analysis</div></div>
+      </div>
+      <div class="skill-card grad-10">
+        <div class="skill-icon"><i class="fas fa-code"></i></div>
+        <div><div class="skill-name">C++</div><div class="skill-level">Programming Fundamentals</div></div>
+      </div>
+      <div class="skill-card grad-7">
+        <div class="skill-icon"><i class="fab fa-git-alt"></i></div>
+        <div><div class="skill-name">Git & GitHub</div><div class="skill-level">Version Control</div></div>
+      </div>
+      <div class="skill-card grad-8">
+        <div class="skill-icon"><i class="fas fa-mobile-alt"></i></div>
+        <div><div class="skill-name">Responsive Design</div><div class="skill-level">Mobile-First Approach</div></div>
+      </div>
+      <div class="skill-card grad-11">
+        <div class="skill-icon"><i class="fas fa-figma" style="font-family:sans-serif;font-weight:700;font-style:normal;font-size:1rem;">Fi</i></div>
+        <div><div class="skill-name">Figma</div><div class="skill-level">UI Design & Prototyping</div></div>
+      </div>
+      <div class="skill-card grad-5">
+        <div class="skill-icon"><i class="fas fa-chart-bar"></i></div>
+        <div><div class="skill-name">Power BI</div><div class="skill-level">Data Visualization</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label">What I've built</div>
+    <h2 class="section-title">My Projects</h2>
+    <p class="section-sub">Real projects with live demos — showcasing my frontend and problem-solving skills.</p>
+    <div class="projects-grid reveal">
+
+      <!-- Weather App -->
+      <div class="project-card">
+        <div class="project-img-placeholder" style="background:linear-gradient(135deg,#0a1628,#1a3a5c);">
+          <i class="fas fa-cloud-sun" style="font-size:3rem;color:rgba(100,180,255,0.75);"></i>
+          <span style="color:rgba(100,180,255,0.5);font-size:0.75rem;margin-top:8px;letter-spacing:0.05em;text-transform:uppercase;">Weather App</span>
+        </div>
+        <div class="project-body">
+          <div class="project-tech-row">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Weather API</span>
+          </div>
+          <div class="project-title">Weather App</div>
+          <p class="project-desc">Real-time weather application using API integration. Displays temperature, humidity, and wind speed for any city with a clean responsive interface.</p>
+          <div class="project-links">
+            <a href="https://github.com/hafsashakeel289-lab/Weather-App" class="project-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://weather-app-eight-pi-35.vercel.app" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- To-Do List -->
+      <div class="project-card">
+        <div class="project-img-placeholder" style="background:linear-gradient(135deg,#0d1f0d,#1a3d1a);">
+          <i class="fas fa-check-square" style="font-size:3rem;color:rgba(80,200,120,0.75);"></i>
+          <span style="color:rgba(80,200,120,0.5);font-size:0.75rem;margin-top:8px;letter-spacing:0.05em;text-transform:uppercase;">Task Manager</span>
+        </div>
+        <div class="project-body">
+          <div class="project-tech-row">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Local Storage</span>
+          </div>
+          <div class="project-title">To-Do List Web Application</div>
+          <p class="project-desc">Feature-rich task manager with add, edit, delete, and mark-as-complete functionality. Includes priority labels, due dates, dark mode, and local storage support.</p>
+          <div class="project-links">
+            <a href="https://github.com/hafsashakeel289-lab/To-DO-list-web-Application" class="project-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://to-do-list-web-application-murex.vercel.app" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Happy Paws -->
+      <div class="project-card">
+        <div class="project-img-placeholder" style="background:linear-gradient(135deg,#1f0d1a,#3d1a2e);">
+          <i class="fas fa-paw" style="font-size:3rem;color:rgba(220,130,180,0.75);"></i>
+          <span style="color:rgba(220,130,180,0.5);font-size:0.75rem;margin-top:8px;letter-spacing:0.05em;text-transform:uppercase;">Pet Store</span>
+        </div>
+        <div class="project-body">
+          <div class="project-tech-row">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+          <div class="project-title">Happy Paws — Pet Online Store</div>
+          <p class="project-desc">Responsive e-commerce frontend for a pet store with product sections, category navigation, and a clean shopping UI designed for a delightful user experience.</p>
+          <div class="project-links">
+            <a href="https://github.com/hafsashakeel289-lab/Happy-Paw-Pet-Online-Store" class="project-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://happy-paws-pet-store.netlify.app" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Medical Image Analysis -->
+      <div class="project-card">
+        <div class="project-img-placeholder" style="background:linear-gradient(135deg,#0d1520,#1a2d3d);">
+          <i class="fas fa-x-ray" style="font-size:3rem;color:rgba(100,210,220,0.75);"></i>
+          <span style="color:rgba(100,210,220,0.5);font-size:0.75rem;margin-top:8px;letter-spacing:0.05em;text-transform:uppercase;">Medical AI</span>
+        </div>
+        <div class="project-body">
+          <div class="project-tech-row">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Digital Image Processing</span>
+          </div>
+          <div class="project-title">Medical Image Analysis using DIP</div>
+          <p class="project-desc">Medical image enhancement system using Python and Digital Image Processing techniques — implementing sharpening, deblurring, and contrast enhancement for diagnostics.</p>
+          <div class="project-links">
+            <a href="https://github.com/hafsashakeel289-lab/Medical-Image-analysis" class="project-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <div class="section-label">Academic Background</div>
+    <h2 class="section-title">Education</h2>
+    <div class="timeline reveal">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">Sep 2023 — Present</div>
+        <div class="timeline-title">Bachelor of Science in Software Engineering</div>
+        <div class="timeline-place">University of Agriculture, Faisalabad, Pakistan</div>
+        <div class="timeline-desc">
+          Currently complete the 6th Semester. Core subjects include Data Structures, Web Development,
+          OOP, Database Systems, Digital Image Processing, and Software Engineering.
+          Actively building real-world projects alongside coursework.
+        </div>
+        <div class="cgpa-badge"><i class="fas fa-star"></i> CGPA: 3.46 / 4.00</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-label">Work Experience</div>
+    <h2 class="section-title">Experience</h2>
+    <div class="exp-card reveal">
+      <div class="exp-icon"><i class="fas fa-search"></i></div>
+      <div>
+        <div class="exp-title">Frontend Web Development Internship</div>
+        <div class="exp-sub">Currently Looking for Internship</div>
+        <div class="exp-desc">
+          I am actively seeking a Frontend Web Development internship where I can contribute
+          my HTML, CSS, JavaScript, and React.js skills to real-world projects. I'm eager
+          to learn from industry professionals, collaborate in a team, and grow as a developer.
+          If you are looking for a motivated and hardworking intern — let's connect!
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="certificates">
+  <div class="section-inner">
+    <div class="section-label">Credentials</div>
+    <h2 class="section-title">Certificates</h2>
+    <div class="certs-grid reveal">
+      <div class="cert-card">
+        <div class="cert-icon"><i class="fas fa-code"></i></div>
+        <div>
+          <div class="cert-name">Web Designing Crash Course</div>
+          <div class="cert-issuer">Saylani Mass IT Training (SMIT)</div>
+          <div class="cert-duration"><i class="fas fa-calendar-alt"></i> May 2025 – Aug 2025 · 4 Months</div>
+        </div>
+      </div>
+      
+        
+</section>
+
+<!-- RESUME -->
+<section id="resume">
+  <div class="section-inner resume-inner">
+    <h2 class="section-title">Download My CV</h2>
+    <p class="section-sub">A complete overview of my skills, education, and projects in one document.</p>
+    <a href="CV_Hafsa_Shakeel.pdf" download class="btn-primary" style="margin:0 auto;display:inline-flex;">
+      <i class="fas fa-file-pdf"></i> Download CV (PDF)
+    </a>
+  </div>
+</section>
+
+
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Let's talk</div>
+    <h2 class="section-title">Get In Touch</h2>
+    <p class="section-sub">Have an internship opportunity or just want to say hi? My inbox is always open.</p>
+    <div class="contact-grid reveal">
+      <div>
+        <div class="contact-info-items">
+          <div class="contact-info-item">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <div class="contact-val"><a href="mailto:hafsashakeel289@gmail.com">hafsashakeel289@gmail.com</a></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+            <div class="contact-val"><a href="tel:+923457874601">+92 345 7874601</a></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="contact-val">Faisalabad, Pakistan</div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon"><i class="fab fa-github"></i></div>
+            <div class="contact-val"><a href="https://github.com/hafsashakeel289-lab" target="_blank">github.com/hafsashakeel289-lab</a></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon"><i class="fab fa-linkedin-in"></i></div>
+            <div class="contact-val"><a href="https://www.linkedin.com/in/hafsa-shakeel-176683383" target="_blank">linkedin.com/in/hafsa-shakeel</a></div>
+          </div>
+        </div>
+        <div class="social-row">
+          <a href="https://github.com/hafsashakeel289-lab" class="social-btn" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/hafsa-shakeel-176683383" class="social-btn" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="mailto:hafsashakeel289@gmail.com" class="social-btn" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-control" placeholder="Ali">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-control" placeholder="Hassan">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" placeholder="ali@company.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <input type="text" class="form-control" placeholder="Internship Opportunity">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-control" rows="5" placeholder="Hi Hafsa, I came across your portfolio..."></textarea>
+        </div>
+        <button type="submit" class="btn-send"><i class="fas fa-paper-plane"></i> Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p style="margin-bottom:6px;">&copy; 2025 <span>Hafsa Shakeel</span> — All rights reserved.</p>
+  <p>Designed &amp; Developed by <span>Hafsa Shakeel</span> · Faisalabad, Pakistan</p>
+</footer>
+
+<script>
+  /* ── TYPED EFFECT ── */
+  const roles = [
+    'Frontend Web Developer',
+    'Software Engineering Student',
+    'React.js Developer',
+    'Responsive UI Builder'
+  ];
+  let rIdx = 0, cIdx = 0, deleting = false;
+  const el = document.getElementById('typed-role');
+  function type() {
+    const current = roles[rIdx];
+    if (!deleting) {
+      el.innerHTML = current.slice(0, ++cIdx) + '<span class="typed-cursor"></span>';
+      if (cIdx === current.length) { deleting = true; return setTimeout(type, 1800); }
+    } else {
+      el.innerHTML = current.slice(0, --cIdx) + '<span class="typed-cursor"></span>';
+      if (cIdx === 0) { deleting = false; rIdx = (rIdx + 1) % roles.length; }
+    }
+    setTimeout(type, deleting ? 60 : 100);
+  }
+  type();
+
+  /* ── SCROLL REVEAL ── */
+  const revealEls = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  revealEls.forEach(el => obs.observe(el));
+
+  /* ── MOBILE MENU ── */
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    const open = links.style.display === 'flex';
+    links.style.display = open ? 'none' : 'flex';
+    if (!open) {
+      Object.assign(links.style, {
+        flexDirection:'column', position:'fixed', top:'64px',
+        left:'0', right:'0', background:'rgba(13,27,42,0.98)',
+        padding:'1.5rem 2rem', gap:'1.5rem',
+        borderBottom:'1px solid rgba(124,106,245,0.2)', zIndex:'999'
+      });
+    }
+  }
+
+  /* ── FORM ── */
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.btn-send');
+    btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+    btn.style.background = '#22c55e';
+    setTimeout(() => {
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+      btn.style.background = '';
+    }, 3000);
+  }
+</script>
+</body>
+</html>
